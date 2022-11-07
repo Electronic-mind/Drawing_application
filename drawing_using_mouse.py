@@ -13,7 +13,7 @@ FPS = 200
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
 
-screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), RESIZABLE)
+screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption("Drawing app")
 
 
@@ -90,6 +90,7 @@ while True:
     screen.blit(eraser_text, eraser_button)
 
     for event in pygame.event.get():
+        print(event)
         
         if event.type == QUIT:
             pygame.quit()
@@ -106,6 +107,7 @@ while True:
             if mouse_y < WINDOW_HEIGHT - 48:
                 # you could also load an image
                 brush(mouse_x, mouse_y)
+                
 
             if red_button.collidepoint(mouse_x, mouse_y):
                 color = RED
@@ -146,6 +148,9 @@ while True:
             surf = pygame.image.load("cursor2.png")
             cursor = pygame.cursors.Cursor((16, 16), surf)
             pygame.mouse.set_cursor(cursor)
+            
+        if event.type == MOUSEBUTTONDOWN and event.button == 3:
+            screen.fill(color)
 
         if event.type == MOUSEMOTION and event.buttons[0] == 1:
             mouse_x = event.pos[0]
